@@ -28,7 +28,7 @@ export default {
       <h1>Yu-Gi-Oh Api</h1>
     </div>
   </header>
-  <main class="flex jc-center ai-center bg-orange">
+  <main class="p-2 flex jc-center ai-center bg-orange">
     <div class="std-width flex ai-center bg-white">
       <div class="p-2 flex ai-center fd-columns">
         <!-- TOP -->
@@ -39,7 +39,7 @@ export default {
         </div>
         <!-- CARDS -->
         <div class="w-100 flex fw-wrap">
-          <div v-for="card in store.urlAPI">
+          <div v-for="card in store.urlAPI" class="w-100">
             <div class=" p-1 flex jc-between bg-orange">
               <!-- <img :src="getImagePath(`${card.card_sets.card_images.image_url_small}`)"> -->
               <p>
