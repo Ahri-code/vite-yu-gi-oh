@@ -1,4 +1,5 @@
 <script>
+import Cards from './Cards.vue'
 import { store } from './store'
 import axios from 'axios'
 
@@ -11,12 +12,23 @@ export default {
   methods: {
     getImagePath: function (imgPath) {
       return new URL(imgPath, import.meta.url).href;
+    },
+    writeStore(link) {
+      this.store.loading = true;
+      axios.get(link).then(element => {
+        const result = element.data;
+        this.store.cardsArray = result;
+        this.store.loading = false;
+      });
     }
   },
   mounted() {
-    axios.get(this.store.urlAPI).then(cards => {
-      console.log(cards);
-    })
+    this.writeStore(this.store.urlAPI);
+  },
+  computed: {
+    dimension() {
+      return this.store.cardsArray.length;
+    }
   }
 }
 </script>
@@ -34,19 +46,12 @@ export default {
         <!-- TOP -->
         <div class="w-100 p-1 flex ai-center bg-grey">
           <p>
-            Sono state trovate {{ }} carte
+            Sono state trovate {{ this.dimension }} carte
           </p>
         </div>
         <!-- CARDS -->
         <div class="w-100 flex fw-wrap">
-          <div v-for="card in store.urlAPI" class="w-100">
-            <div class=" p-1 flex jc-between bg-orange">
-              <!-- <img :src="getImagePath(`${card.card_sets.card_images.image_url_small}`)"> -->
-              <p>
-                {{ card.name }}
-              </p>
-            </div>
-          </div>
+          <Cards />
         </div>
       </div>
     </div>
