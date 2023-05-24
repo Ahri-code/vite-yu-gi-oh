@@ -5,13 +5,11 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      store
+      store,
+      filteredArray: []
     }
   },
   methods: {
-    getImagePath: function (imgPath) {
-      return new URL(imgPath, import.meta.url).href;
-    },
     writeStore(link) {
       this.store.loading = true;
       axios.get(link).then(element => {
@@ -23,6 +21,11 @@ export default {
   },
   mounted() {
     this.writeStore(this.store.urlAPI);
+    this.store.cardsArray.forEach(element => {
+      if (!this.filteredArray.includes(element.race)) {
+        this.filteredArray.push(element.race);
+      }
+    });
   },
   computed: {
     takeData() {
@@ -47,7 +50,7 @@ export default {
       <div class="std-width pb-2">
         <select>
           <option>All</option>
-          <option v-for="filter in takeData">{{ filter.race }}</option>
+          <option v-for="filter in filteredArray">{{ filter }}</option>
         </select>
       </div>
       <div class="std-width flex ai-center bg-white">
