@@ -24,10 +24,14 @@
     flex-wrap: wrap;
 }
 
+.gap-1 {
+    gap: 1rem;
+}
+
 // --- DIM ---
 
 .std-width {
-    width: 80%;
+    width: 70%;
 }
 
 .w-100 {
@@ -42,6 +46,10 @@
     padding: 1rem;
 }
 
+.pb-2 {
+    padding-bottom: 2rem;
+}
+
 // --- COLOR ---
 
 .bg-orange {
@@ -54,4 +62,22 @@
 
 .bg-grey {
     background-color: #2b2b2b;
+}
+
+.c-white {
+    color: white;
+}
+
+// --- TEXT ---
+
+.ta-center {
+    text-align: center;
+}
+
+.upperCase {
+    text-transform: uppercase;
+}
+
+.w-wrap {
+    word-wrap: break-word;
 }
