@@ -1,12 +1,14 @@
 <script>
 import { store } from './store'
 import axios from 'axios'
+import CardTest from './components/CardTest.vue'
 
 export default {
   data() {
     return {
       store,
-      filteredArray: []
+      filteredArray: [],
+      selected: "All"
     }
   },
   methods: {
@@ -16,16 +18,16 @@ export default {
         const result = element.data;
         this.store.cardsArray = result.data;
         this.store.loading = false;
+        this.store.cardsArray.forEach(element => {
+          if (!this.filteredArray.includes(element.race)) {
+            this.filteredArray.push(element.race);
+          }
+        });
       });
     }
   },
   mounted() {
     this.writeStore(this.store.urlAPI);
-    this.store.cardsArray.forEach(element => {
-      if (!this.filteredArray.includes(element.race)) {
-        this.filteredArray.push(element.race);
-      }
-    });
   },
   computed: {
     takeData() {
@@ -39,6 +41,9 @@ export default {
 </script>
 
 <template>
+  <!--***  -->
+  <CardTest />
+  <!-- *** -->
   <div v-if="store.loading == false">
     <header class="flex jc-center ai-center">
       <div class="std-width flex ai-center">
@@ -48,7 +53,7 @@ export default {
     </header>
     <main class="p-2 flex jc-center ai-center fd-columns bg-orange">
       <div class="std-width pb-2">
-        <select>
+        <select v-model="selected">
           <option>All</option>
           <option v-for="filter in filteredArray">{{ filter }}</option>
         </select>
